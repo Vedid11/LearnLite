@@ -278,18 +278,6 @@ available to you. Use the output to set `WATSONX_MODEL_ID`.
 
 ---
 
-## Screenshots
-
-> _Add screenshots of the running application here._
->
-> Suggested shots:
-> - Main input form with academic text pasted in
-> - Explanation tab result at Beginner level
-> - Key Terms tab result at Advanced level
-> - Quiz tab result
-
----
-
 ## Future Improvements
 
 - **Conversation memory** — allow follow-up questions on the same text
