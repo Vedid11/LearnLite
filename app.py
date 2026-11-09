@@ -99,7 +99,7 @@ def clear_state() -> None:
 st.title("📚 LearnLite")
 st.markdown("##### Your Personal AI Learning Assistant")
 st.markdown(
-    "Turn complex academic content into clear explanations that match your learning level.  \n"
+    "Turn complex academic content into clear explanations tailored to your learning level.  \n"
     "Paste any academic text, pick your level, and let **IBM Granite** do the rest."
 )
 st.divider()
