@@ -1,8 +1,7 @@
 """
 app.py
 ------
-LearnLite — AI-Powered Course Content Simplification Agent
-Edunet PS19
+LearnLite — Your Personal AI Learning Assistant
 
 Run with:
     streamlit run app.py
@@ -16,7 +15,7 @@ from granite_client import chat_completion
 # Page configuration
 # ---------------------------------------------------------------------------
 st.set_page_config(
-    page_title="LearnLite – Course Content Simplifier",
+    page_title="LearnLite – AI Learning Assistant",
     page_icon="📚",
     layout="wide",
     initial_sidebar_state="collapsed",
@@ -98,10 +97,10 @@ def clear_state() -> None:
 # Header
 # ---------------------------------------------------------------------------
 st.title("📚 LearnLite")
+st.markdown("##### Your Personal AI Learning Assistant")
 st.markdown(
-    "**AI-Powered Course Content Simplification Agent** — Edunet PS19  \n"
-    "Paste any academic text, pick your learning level, and let "
-    "**IBM Granite** explain it in a way that suits you."
+    "Turn complex academic content into clear explanations that match your learning level.  \n"
+    "Paste any academic text, pick your level, and let **IBM Granite** do the rest."
 )
 st.divider()
 
@@ -253,8 +252,7 @@ if "result" in st.session_state:
 st.divider()
 st.markdown(
     "<p style='text-align:center; color:#888; font-size:0.82rem;'>"
-    "LearnLite · Edunet PS19 · Powered by "
-    "<strong>IBM Granite</strong> via IBM watsonx.ai"
+    "LearnLite · Powered by <strong>IBM Granite</strong> via IBM watsonx.ai"
     "</p>",
     unsafe_allow_html=True,
 )

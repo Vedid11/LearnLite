@@ -1,16 +1,11 @@
 # LearnLite 📚
 
-**AI-Powered Course Content Simplification Agent**  
-Edunet Internship — Problem Statement PS19
+**Your Personal AI Learning Assistant**
 
----
-
-## Overview
-
-LearnLite helps students understand complex academic content by generating
-level-appropriate explanations, key-term definitions, relatable examples,
-concise summaries, and quiz questions — all powered by **IBM Granite** through
-the official **IBM watsonx.ai Python SDK**.
+Turn complex academic content into clear explanations that match your learning level.
+LearnLite generates level-appropriate explanations, key-term definitions, relatable
+examples, concise summaries, and quiz questions — all powered by **IBM Granite**
+through the official **IBM watsonx.ai Python SDK**.
 
 ---
 
@@ -242,4 +237,6 @@ python list_granite_models.py
 
 ## License
 
-This project was created for the Edunet Foundation internship programme.
+This project was developed as part of the Edunet Foundation internship programme
+and is submitted for academic evaluation. The LearnLite product name, branding,
+and application remain available for continued development beyond the internship.
