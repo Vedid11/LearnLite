@@ -71,19 +71,30 @@ def _get_credentials() -> dict:
     return creds
 
 
-def chat_completion(messages: list) -> str:
+def chat_completion(messages: list, return_usage: bool = False):
     """
-    Send a list of chat messages to IBM Granite and return the
-    assistant's reply text.
+    Send a list of chat messages to IBM Granite and return the result.
 
     Parameters
     ----------
-    messages : list of dicts with "role" and "content" keys,
-               e.g. [{"role": "system", "content": "..."}, {"role": "user", "content": "..."}]
+    messages     : list of dicts with "role" and "content" keys,
+                   e.g. [{"role": "system", "content": "..."}, {"role": "user", "content": "..."}]
+    return_usage : When False (default) returns only the generated text string,
+                   preserving backward compatibility.
+                   When True returns a tuple (text, usage) where usage is a dict:
+                     {
+                       "prompt_tokens"     : int | None,
+                       "completion_tokens" : int | None,
+                       "total_tokens"      : int | None,
+                     }
+                   All three values are taken directly from the API response's
+                   "usage" object (fields: prompt_tokens, completion_tokens,
+                   total_tokens). If the field is absent, its value is None.
 
     Returns
     -------
-    str : The assistant's generated reply.
+    str                    — when return_usage is False
+    tuple[str, dict]       — when return_usage is True
 
     Raises
     ------
@@ -105,7 +116,22 @@ def chat_completion(messages: list) -> str:
 
     try:
         response = model.chat(messages=messages)
-        return response["choices"][0]["message"]["content"]
+        text = response["choices"][0]["message"]["content"]
+
+        if not return_usage:
+            return text
+
+        # Extract usage from the top-level "usage" key.
+        # Confirmed field names from live API response (SDK 1.9.1):
+        #   prompt_tokens, completion_tokens, total_tokens
+        raw_usage = response.get("usage") or {}
+        usage = {
+            "prompt_tokens":     raw_usage.get("prompt_tokens"),
+            "completion_tokens": raw_usage.get("completion_tokens"),
+            "total_tokens":      raw_usage.get("total_tokens"),
+        }
+        return text, usage
+
     except Exception as exc:
         raise RuntimeError(
             f"IBM watsonx.ai chat request failed: {exc}"

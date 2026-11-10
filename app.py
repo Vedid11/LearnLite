@@ -89,7 +89,7 @@ def parse_response(raw: str) -> dict:
 
 def clear_state() -> None:
     """Wipe results from session state (bound to the Clear button)."""
-    for key in ("result", "raw_response", "last_level"):
+    for key in ("result", "raw_response", "last_level", "token_usage"):
         st.session_state.pop(key, None)
 
 
@@ -162,13 +162,14 @@ if run_button:
     else:
         with st.spinner("IBM Granite is analysing your content…"):
             try:
-                messages     = build_messages(academic_text.strip(), level)
-                raw_response = chat_completion(messages)
-                result       = parse_response(raw_response)
+                messages                 = build_messages(academic_text.strip(), level)
+                raw_response, token_usage = chat_completion(messages, return_usage=True)
+                result                   = parse_response(raw_response)
 
                 st.session_state["result"]       = result
                 st.session_state["raw_response"] = raw_response
                 st.session_state["last_level"]   = level
+                st.session_state["token_usage"]  = token_usage
 
             except EnvironmentError as env_err:
                 st.error(f"⚙️ **Configuration error:** {env_err}")
@@ -245,6 +246,24 @@ if "result" in st.session_state:
 
     with st.expander("🔍 Raw AI Response (debug)", expanded=False):
         st.text(st.session_state.get("raw_response", ""))
+
+    # -------------------------------------------------------------------------
+    # Token usage
+    # -------------------------------------------------------------------------
+    st.markdown("#### IBM Granite Token Usage")
+    usage = st.session_state.get("token_usage")
+    if usage and any(v is not None for v in usage.values()):
+        cols = st.columns(3)
+        labels = [
+            ("prompt_tokens",     "Input tokens"),
+            ("completion_tokens", "Output tokens"),
+            ("total_tokens",      "Total tokens"),
+        ]
+        for col, (key, label) in zip(cols, labels):
+            value = usage.get(key)
+            col.metric(label, value if value is not None else "—")
+    else:
+        st.caption("IBM watsonx.ai did not return token usage for this response.")
 
 # ---------------------------------------------------------------------------
 # Footer
