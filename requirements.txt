@@ -1,3 +1,4 @@
+# LearnLite dependencies
 streamlit>=1.35.0
 ibm-watsonx-ai>=1.0.0
 python-dotenv>=1.0.0
