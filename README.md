@@ -291,4 +291,4 @@ available to you. Use the output to set `WATSONX_MODEL_ID`.
 
 ## License
 
-MIT License — see [LICENSE](LICENSE) for details.
+MIT License
