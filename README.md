@@ -287,8 +287,3 @@ available to you. Use the output to set `WATSONX_MODEL_ID`.
 - **Additional languages** — generate explanations in languages other than English
 - **Accessibility** — screen-reader friendly result rendering
 
----
-
-## License
-
-MIT License
